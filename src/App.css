@@ -1,38 +1,56 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.container {
+  width: 100%;
+  height: 100vh;
+  background-color: #04151f;
   display: flex;
   flex-direction: column;
-  align-items: center;
+}
+
+.header {
+  height: 50px;
+  background-color: #efd6ac;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: center;
 }
 
-.App-link {
-  color: #61dafb;
+.title {
+  color: #04151f;
+  padding: 16px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+}
+
+.input-container {
+  width: 468px;
+  padding: 16px;
+  margin-bottom: 16px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: #efd6ac;
+}
+
+.input-field-wrapper {
+  display: flex;
+  flex: 1;
+}
+
+.cta-wrapper {
+  padding-left: 32px;
+}
+
+#flutterView {
+  width: 500px;
+  height: 500px;
+  background-color: #efd6ac;
+  border-radius: 10px;
 }
