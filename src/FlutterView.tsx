@@ -19,17 +19,44 @@ const FlutterView: React.FC<FlutterViewProps> = memo(({
     useEffect(() => {
         const target = ref.current;
         const initFlutterApp = async () => {
-            _flutter.loader.loadEntrypoint({
-                entrypointUrl: src,
+            _flutter.buildConfig = {
+                builds:[{
+                    compileTarget:"dart2js",
+                    renderer:"canvaskit",
+                    mainJsPath:"main.dart.js",
+                }],
+                useLocalCanvasKit:true,
+            };
+            _flutter.loader.load({
+                config: {
+                    canvasKitBaseUrl: "/web/canvaskit",
+                    entryPointBaseUrl: "/web/",
+                },
                 onEntrypointLoaded: async (engineInitializer: any) => {
-                    const appRunner = await engineInitializer.initializeEngine({
-                        hostElement: target,
-                        assetBase,
-                    });
-                    console.log('appRunner:', appRunner);
-                    await appRunner?.runApp();
+                    try {
+                        const appRunner = await engineInitializer.initializeEngine({
+                            assetBase: "/web/",
+                            hostElement: target,
+                        });
+                        await appRunner?.runApp();
+                    } catch (e) {
+                        console.log('engineInitializer: failed:', e);
+                    }
                 },
             });
+
+            // _flutter.loader.loadEntrypoint({
+            //     entrypointUrl: "/web/main.dart.js",
+            //     onEntrypointLoaded: (async (engineInitializer: any) => {
+            //         const appRunner = await engineInitializer.initializeEngine({
+            //             canvasKitBaseUrl: "/web/canvaskit",
+            //             entryPointBaseUrl: "/web/",
+            //             assetBase: "/web/",
+            //             hostElement: target,
+            //         });
+            //         await appRunner?.runApp();
+            //     }),
+            // });
         };
 
         initFlutterApp()
