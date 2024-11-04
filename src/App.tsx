@@ -1,31 +1,41 @@
-import React from 'react';
-import './App.css';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import FlutterView from './FlutterView';
+import React, { useState } from "react";
+import "./App.css";
+import TextField from "@mui/material/TextField";
+import FlutterView from "./components/FlutterView";
 
 const App: React.FC = () => {
+  const [flutterTitle, setFlutterTitle] = useState<string>();
+  const [messageFromFlutter, setMessageFromFlutter] = useState<string>();
+
   return (
     <div className="container">
       <div className="header">
         <div className="title">JS interoperability with flutter</div>
       </div>
       <div className="content">
-        <div className="input-container">
+        <div className="display-container">
           <div className="input-field-wrapper">
-            <TextField fullWidth label="Message to flutter" variant="standard" color="secondary" />
-          </div>
-          <div className="cta-wrapper">
-            <Button variant="contained">Send to flutter</Button>
+            <TextField
+              fullWidth
+              label="Message to flutter"
+              variant="standard"
+              color="secondary"
+              onChange={event => setFlutterTitle(event.target.value)}
+            />
           </div>
         </div>
         <FlutterView
-          assetBase={process.env.PUBLIC_URL + '/web/'}
-          src={process.env.PUBLIC_URL + '/web/main.dart.js'}
+          flutterTitle={flutterTitle}
+          onFlutterMessageChange={setMessageFromFlutter}
         />
+        <div className="display-container">
+          <div className="display-text">
+            {messageFromFlutter || "No message from flutter yet"}
+          </div>
+        </div>
       </div>
     </div>
   );
-}
+};
 
 export default App;

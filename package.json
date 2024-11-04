@@ -20,8 +20,8 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "make updade-flutter-module && react-scripts start",
+    "build": "make updade-flutter-module && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

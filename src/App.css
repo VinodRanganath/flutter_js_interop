@@ -17,6 +17,7 @@
 
 .title {
   color: #04151f;
+  font-size: 18px;
   padding: 16px;
 }
 
@@ -28,13 +29,14 @@
   align-items: center;
 }
 
-.input-container {
+.display-container {
   width: 468px;
+  height: 50px;
   padding: 16px;
-  margin-bottom: 16px;
   border-radius: 10px;
   display: flex;
   flex-direction: row;
+  justify-content: center;
   align-items: center;
   background-color: #efd6ac;
 }
@@ -48,9 +50,19 @@
   padding-left: 32px;
 }
 
-#flutterView {
+.flutter-view {
   width: 500px;
   height: 500px;
-  background-color: #efd6ac;
+  margin: 16px 0px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background-color: #efd7ae;
   border-radius: 10px;
+}
+
+.display-text {
+  font-weight: 600;
+  color: #ce035f;
 }
