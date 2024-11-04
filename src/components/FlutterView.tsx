@@ -32,10 +32,6 @@ const FlutterView: React.FC<FlutterViewProps> = memo(
       const initFlutterApp = async () => {
         const entryPoint = "/web/";
 
-        target?.addEventListener("flutter-initialized", flutterEventListener, {
-          once: true,
-        });
-
         _flutter.buildConfig = {
           builds: [
             {
@@ -59,6 +55,14 @@ const FlutterView: React.FC<FlutterViewProps> = memo(
               });
 
               await appRunner?.runApp();
+
+              target?.addEventListener(
+                "flutter-initialized",
+                flutterEventListener,
+                {
+                  once: true,
+                }
+              );
             } catch (e) {
               console.log("FlutterView: engineInitializer: failed:", e);
               initFlutterApp();
@@ -80,7 +84,7 @@ const FlutterView: React.FC<FlutterViewProps> = memo(
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     useEffect(
-      () => flutterState.current?.setFlutterTitle(flutterTitle),
+      () => flutterState.current?.setFlutterTitle(flutterTitle || null),
       [flutterTitle]
     );
 

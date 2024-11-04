@@ -20,7 +20,7 @@ const App: React.FC = () => {
               label="Message to flutter"
               variant="standard"
               color="secondary"
-              onChange={event => setFlutterTitle(event.target.value)}
+              onChange={(event) => setFlutterTitle(event.target.value)}
             />
           </div>
         </div>
