@@ -48,11 +48,8 @@ class AppStateManager {
   }
 
   void asyncCallback(Function(String) f) {
-    FFAppState().addListener(() {
-      print(
-          'AppStateManager: asyncCallback: ${FFAppState().asyncState?.serialize()}');
-      f(FFAppState().asyncState?.serialize() ?? '');
-    });
+    FFAppState()
+        .addListener(() => f(FFAppState().asyncState?.serialize() ?? ''));
   }
 }
 

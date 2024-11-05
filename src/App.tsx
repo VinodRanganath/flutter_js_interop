@@ -16,8 +16,8 @@ const App: React.FC = () => {
   const [asyncState, setAsyncState] = useState<ASYNC_STATES>(ASYNC_STATES.IDLE);
 
   const asyncCallback = async (status: string) => {
-    console.log('App: asyncCallback:', status.toString());
     if (status === ASYNC_STATES.REQUESTED.toString()) {
+      setAsyncState(ASYNC_STATES.REQUESTED)
       setTimeout(() => setAsyncState(ASYNC_STATES.SUCCESS), 5000);
     }
   };

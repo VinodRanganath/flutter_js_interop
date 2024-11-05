@@ -205,8 +205,12 @@ class _ModuleIntegrationWidgetState extends State<ModuleIntegrationWidget> {
                         padding: EdgeInsets.all(16.0),
                         child: FFButtonWidget(
                           onPressed: () async {
-                            FFAppState().asyncState = AsyncStates.REQUESTED;
-                            safeSetState(() {});
+                            await actions.updateAppState(
+                              () async {
+                                FFAppState().asyncState = AsyncStates.REQUESTED;
+                                safeSetState(() {});
+                              },
+                            );
                             await Future.delayed(
                                 const Duration(milliseconds: 5000));
                           },
