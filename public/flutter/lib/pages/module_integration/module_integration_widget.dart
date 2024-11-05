@@ -1,3 +1,4 @@
+import '/backend/schema/enums/enums.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -199,78 +200,113 @@ class _ModuleIntegrationWidgetState extends State<ModuleIntegrationWidget> {
                         ),
                       ),
                     ),
-                    Padding(
-                      padding: EdgeInsets.all(16.0),
-                      child: FFButtonWidget(
-                        onPressed: () async {
-                          var confirmDialogResponse = await showDialog<bool>(
-                                context: context,
-                                builder: (alertDialogContext) {
-                                  return AlertDialog(
-                                    content: Text(
-                                        'Are you sure you want to close this flutter module'),
-                                    actions: [
-                                      TextButton(
-                                        onPressed: () => Navigator.pop(
-                                            alertDialogContext, false),
-                                        child: Text('Cancel'),
-                                      ),
-                                      TextButton(
-                                        onPressed: () => Navigator.pop(
-                                            alertDialogContext, true),
-                                        child: Text('Confirm'),
-                                      ),
-                                    ],
-                                  );
-                                },
-                              ) ??
-                              false;
-                          if (confirmDialogResponse) {
-                            if (FFAppState().isWeb) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content: Text(
-                                    'Not yet implemented on web',
-                                    style: FlutterFlowTheme.of(context)
-                                        .titleSmall
-                                        .override(
-                                          fontFamily: 'Space Grotesk',
-                                          color: FlutterFlowTheme.of(context)
-                                              .secondaryBackground,
-                                          letterSpacing: 0.0,
-                                        ),
-                                  ),
-                                  duration: Duration(milliseconds: 4000),
-                                  backgroundColor:
-                                      FlutterFlowTheme.of(context).info,
+                    if (FFAppState().isWeb)
+                      Padding(
+                        padding: EdgeInsets.all(16.0),
+                        child: FFButtonWidget(
+                          onPressed: () async {
+                            FFAppState().asyncState = AsyncStates.REQUESTED;
+                            safeSetState(() {});
+                            await Future.delayed(
+                                const Duration(milliseconds: 5000));
+                          },
+                          text: 'Invoke async callback',
+                          options: FFButtonOptions(
+                            width: MediaQuery.sizeOf(context).width * 1.0,
+                            height: 40.0,
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                16.0, 0.0, 16.0, 0.0),
+                            iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 0.0, 0.0, 0.0),
+                            color: FlutterFlowTheme.of(context).primary,
+                            textStyle: FlutterFlowTheme.of(context)
+                                .titleSmall
+                                .override(
+                                  fontFamily: 'Space Grotesk',
+                                  color: Colors.white,
+                                  letterSpacing: 0.0,
                                 ),
-                              );
-                              await actions.exitFlutter();
-                            } else {
-                              await actions.exitFlutter();
-                            }
-                          }
-                        },
-                        text: 'Close flutter module',
-                        options: FFButtonOptions(
-                          width: MediaQuery.sizeOf(context).width * 1.0,
-                          height: 40.0,
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              16.0, 0.0, 16.0, 0.0),
-                          iconPadding: EdgeInsetsDirectional.fromSTEB(
-                              0.0, 0.0, 0.0, 0.0),
-                          color: FlutterFlowTheme.of(context).secondaryText,
-                          textStyle:
-                              FlutterFlowTheme.of(context).titleSmall.override(
-                                    fontFamily: 'Space Grotesk',
-                                    color: Colors.white,
-                                    letterSpacing: 0.0,
-                                  ),
-                          elevation: 0.0,
-                          borderRadius: BorderRadius.circular(8.0),
+                            elevation: 0.0,
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
                         ),
                       ),
-                    ),
+                    if (!valueOrDefault<bool>(
+                      FFAppState().isWeb,
+                      false,
+                    ))
+                      Padding(
+                        padding: EdgeInsets.all(16.0),
+                        child: FFButtonWidget(
+                          onPressed: () async {
+                            var confirmDialogResponse = await showDialog<bool>(
+                                  context: context,
+                                  builder: (alertDialogContext) {
+                                    return AlertDialog(
+                                      content: Text(
+                                          'Are you sure you want to close this flutter module'),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () => Navigator.pop(
+                                              alertDialogContext, false),
+                                          child: Text('Cancel'),
+                                        ),
+                                        TextButton(
+                                          onPressed: () => Navigator.pop(
+                                              alertDialogContext, true),
+                                          child: Text('Confirm'),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                ) ??
+                                false;
+                            if (confirmDialogResponse) {
+                              if (FFAppState().isWeb) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(
+                                      'Not yet implemented on web',
+                                      style: FlutterFlowTheme.of(context)
+                                          .titleSmall
+                                          .override(
+                                            fontFamily: 'Space Grotesk',
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondaryBackground,
+                                            letterSpacing: 0.0,
+                                          ),
+                                    ),
+                                    duration: Duration(milliseconds: 4000),
+                                    backgroundColor:
+                                        FlutterFlowTheme.of(context).info,
+                                  ),
+                                );
+                              } else {
+                                await actions.exitFlutter();
+                              }
+                            }
+                          },
+                          text: 'Close flutter module',
+                          options: FFButtonOptions(
+                            width: MediaQuery.sizeOf(context).width * 1.0,
+                            height: 40.0,
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                16.0, 0.0, 16.0, 0.0),
+                            iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 0.0, 0.0, 0.0),
+                            color: FlutterFlowTheme.of(context).secondaryText,
+                            textStyle: FlutterFlowTheme.of(context)
+                                .titleSmall
+                                .override(
+                                  fontFamily: 'Space Grotesk',
+                                  color: Colors.white,
+                                  letterSpacing: 0.0,
+                                ),
+                            elevation: 0.0,
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                        ),
+                      ),
                     if (valueOrDefault<bool>(
                       !FFAppState().isWeb &&
                           (FFAppState().sentValue != null &&
@@ -281,6 +317,27 @@ class _ModuleIntegrationWidgetState extends State<ModuleIntegrationWidget> {
                         padding: EdgeInsets.all(16.0),
                         child: GradientText(
                           'Message sent to native: ${FFAppState().sentValue}',
+                          style:
+                              FlutterFlowTheme.of(context).titleMedium.override(
+                                    fontFamily: 'Space Grotesk',
+                                    letterSpacing: 0.0,
+                                  ),
+                          colors: [
+                            FlutterFlowTheme.of(context).info,
+                            FlutterFlowTheme.of(context).primary
+                          ],
+                          gradientDirection: GradientDirection.ltr,
+                          gradientType: GradientType.linear,
+                        ),
+                      ),
+                    if (valueOrDefault<bool>(
+                      FFAppState().isWeb,
+                      false,
+                    ))
+                      Padding(
+                        padding: EdgeInsets.all(16.0),
+                        child: GradientText(
+                          'Async method status: ${FFAppState().asyncState?.name}',
                           style:
                               FlutterFlowTheme.of(context).titleMedium.override(
                                     fontFamily: 'Space Grotesk',

@@ -1,4 +1,5 @@
 // Automatic FlutterFlow imports
+import '/backend/schema/enums/enums.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'index.dart'; // Imports other custom actions
@@ -22,19 +23,35 @@ Future initJSInterop() async {
   }
 }
 
+AsyncStates getAsyncStatesEnumFromString(String value) {
+  try {
+    return AsyncStates.values.where((val) => val.name == value).first;
+  } catch (e) {
+    print('getAsyncStatesEnumFromString: failed with error: $e');
+    return AsyncStates.ERROR;
+  }
+}
+
 @JSExport()
 class AppStateManager {
-  void setFlutterTitle(String value) {
-    FFAppState().update(() => FFAppState().receivedValue = value);
+  void setFlutterTitle(String title) {
+    FFAppState().update(() => FFAppState().receivedValue = title);
+  }
+
+  void setAsyncState(String state) {
+    FFAppState().update(
+        () => FFAppState().asyncState = getAsyncStatesEnumFromString(state));
   }
 
   void onMessageToReactChanged(Function(String) f) {
+    FFAppState().addListener(() => f(FFAppState().sentValue));
+  }
+
+  void asyncCallback(Function(String) f) {
     FFAppState().addListener(() {
-      f(FFAppState().sentValue);
       print(
-          'AppStateManager: onMessageToReactChanged: sentValue: ${FFAppState().sentValue}');
-      print(
-          'AppStateManager: onMessageToReactChanged: receivedValue: ${FFAppState().receivedValue}');
+          'AppStateManager: asyncCallback: ${FFAppState().asyncState?.serialize()}');
+      f(FFAppState().asyncState?.serialize() ?? '');
     });
   }
 }

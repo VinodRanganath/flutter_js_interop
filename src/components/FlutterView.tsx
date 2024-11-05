@@ -1,23 +1,28 @@
 import React, { memo, useEffect, useRef } from "react";
 import CircularProgress from "@mui/material/CircularProgress";
 import "../App.css";
+import { ASYNC_STATES } from "../App";
 
 declare var _flutter: any;
 
 interface FlutterViewProps {
   flutterTitle: string | undefined;
+  asyncState: ASYNC_STATES;
   onFlutterMessageChange: (message: string) => void;
+  asyncCallback: (status: string) => void;
 }
 
 const FlutterView: React.FC<FlutterViewProps> = memo(
-  ({ flutterTitle, onFlutterMessageChange }) => {
+  ({ flutterTitle, asyncState, onFlutterMessageChange, asyncCallback }) => {
     const flutterState = useRef<any>(null);
     const ref = useRef<HTMLDivElement>(null);
 
     const onFlutterModuleLoad = (state: any) => {
       console.log("FlutterView: onFlutterModuleLoad: state", state);
-      state.onMessageToReactChanged(onFlutterMessageChange);
       state.setFlutterTitle(flutterTitle);
+      state.setAsyncState(asyncState.toString());
+      state.onMessageToReactChanged(onFlutterMessageChange);
+      state.asyncCallback(asyncCallback);
       flutterState.current = state;
     };
 
@@ -86,6 +91,11 @@ const FlutterView: React.FC<FlutterViewProps> = memo(
     useEffect(
       () => flutterState.current?.setFlutterTitle(flutterTitle || null),
       [flutterTitle]
+    );
+
+    useEffect(
+      () => flutterState.current?.setAsyncState(asyncState.toString()),
+      [asyncState]
     );
 
     return (

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '/backend/schema/enums/enums.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'flutter_flow/flutter_flow_util.dart';
 
@@ -38,5 +39,11 @@ class FFAppState extends ChangeNotifier {
   bool get isWeb => _isWeb;
   set isWeb(bool value) {
     _isWeb = value;
+  }
+
+  AsyncStates? _asyncState = AsyncStates.IDLE;
+  AsyncStates? get asyncState => _asyncState;
+  set asyncState(AsyncStates? value) {
+    _asyncState = value;
   }
 }
