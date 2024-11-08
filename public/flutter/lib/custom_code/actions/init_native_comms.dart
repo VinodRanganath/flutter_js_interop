@@ -13,5 +13,5 @@ Future initNativeComms() async {
     initJSInterop();
     return;
   }
-  receiveFromNative();
+  initNativeMethodChannel();
 }

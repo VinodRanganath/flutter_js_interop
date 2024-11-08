@@ -1,3 +1,2 @@
 // Export pages
-export '/pages/module_integration/module_integration_widget.dart'
-    show ModuleIntegrationWidget;
+export '/pages/home/home_widget.dart' show HomeWidget;

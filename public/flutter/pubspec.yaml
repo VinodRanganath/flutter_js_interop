@@ -141,6 +141,6 @@ flutter:
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
   module:
-    androidPackage: com.mycompany.helloworldmodule
-    iosBundleIdentifier: com.mycompany.helloworldmodule
+    androidPackage: com.vr.helloworldmodule
+    iosBundleIdentifier: com.vr.helloworldmodule
    

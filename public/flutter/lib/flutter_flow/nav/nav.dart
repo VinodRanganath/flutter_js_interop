@@ -38,17 +38,17 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       initialLocation: '/',
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
-      errorBuilder: (context, state) => ModuleIntegrationWidget(),
+      errorBuilder: (context, state) => HomeWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
-          builder: (context, _) => ModuleIntegrationWidget(),
+          builder: (context, _) => HomeWidget(),
         ),
         FFRoute(
-          name: 'ModuleIntegration',
-          path: '/moduleIntegration',
-          builder: (context, params) => ModuleIntegrationWidget(),
+          name: 'Home',
+          path: '/home',
+          builder: (context, params) => HomeWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
