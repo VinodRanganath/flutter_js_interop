@@ -1,11 +1,16 @@
 import '/backend/schema/enums/enums.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/flutter_flow/instant_timer.dart';
 import '/custom_code/actions/index.dart' as actions;
+import 'package:hello_world_design_library_3pf989/flutter_flow/flutter_flow_util.dart'
+    as hello_world_design_library_3pf989_util show wrapWithModel, createModel;
 import 'package:easy_debounce/easy_debounce.dart';
+import 'package:ff_theme/flutter_flow/flutter_flow_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hello_world_design_library_3pf989/components/primary_c_t_a_widget.dart';
+import 'package:percent_indicator/percent_indicator.dart';
 import 'package:provider/provider.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
 import 'home_model.dart';
@@ -53,15 +58,7 @@ class _HomeWidgetState extends State<HomeWidget> {
             width: MediaQuery.sizeOf(context).width * 1.0,
             height: MediaQuery.sizeOf(context).height * 1.0,
             decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  FlutterFlowTheme.of(context).accent1,
-                  FlutterFlowTheme.of(context).accent2
-                ],
-                stops: [0.0, 1.0],
-                begin: AlignmentDirectional(0.0, -1.0),
-                end: AlignmentDirectional(0, 1.0),
-              ),
+              color: FlutterFlowTheme.of(context).primaryText,
             ),
             child: Align(
               alignment: AlignmentDirectional(0.0, 0.0),
@@ -84,8 +81,8 @@ class _HomeWidgetState extends State<HomeWidget> {
                               useGoogleFonts: false,
                             ),
                         colors: [
-                          FlutterFlowTheme.of(context).primary,
-                          FlutterFlowTheme.of(context).info
+                          FlutterFlowTheme.of(context).secondary,
+                          FlutterFlowTheme.of(context).primary
                         ],
                         gradientDirection: GradientDirection.ltr,
                         gradientType: GradientType.linear,
@@ -188,11 +185,14 @@ class _HomeWidgetState extends State<HomeWidget> {
                           style:
                               FlutterFlowTheme.of(context).bodyMedium.override(
                                     fontFamily: 'Space Grotesk',
+                                    color: FlutterFlowTheme.of(context)
+                                        .secondaryBackground,
                                     fontSize: 18.0,
                                     letterSpacing: 0.0,
                                     fontWeight: FontWeight.w300,
                                   ),
-                          cursorColor: FlutterFlowTheme.of(context).primaryText,
+                          cursorColor:
+                              FlutterFlowTheme.of(context).secondaryText,
                           validator: _model
                               .messageToReactTextControllerValidator
                               .asValidator(context),
@@ -202,35 +202,38 @@ class _HomeWidgetState extends State<HomeWidget> {
                     if (FFAppState().isWeb)
                       Padding(
                         padding: EdgeInsets.all(16.0),
-                        child: FFButtonWidget(
-                          onPressed: () async {
-                            await actions.updateAppState(
-                              () async {
-                                FFAppState().asyncState = AsyncStates.REQUESTED;
-                                safeSetState(() {});
-                              },
-                            );
-                            await Future.delayed(
-                                const Duration(milliseconds: 5000));
-                          },
-                          text: 'Invoke async callback',
-                          options: FFButtonOptions(
-                            width: MediaQuery.sizeOf(context).width * 1.0,
-                            height: 40.0,
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                16.0, 0.0, 16.0, 0.0),
-                            iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 0.0, 0.0),
-                            color: FlutterFlowTheme.of(context).primary,
-                            textStyle: FlutterFlowTheme.of(context)
-                                .titleSmall
-                                .override(
-                                  fontFamily: 'Space Grotesk',
-                                  color: Colors.white,
-                                  letterSpacing: 0.0,
-                                ),
-                            elevation: 0.0,
-                            borderRadius: BorderRadius.circular(8.0),
+                        child: hello_world_design_library_3pf989_util
+                            .wrapWithModel(
+                          model: _model.primaryCTAModel,
+                          updateCallback: () => safeSetState(() {}),
+                          child: PrimaryCTAWidget(
+                            title: 'Invoke async callback',
+                            onClick: () async {
+                              await actions.updateAppState(
+                                () async {
+                                  FFAppState().asyncState =
+                                      AsyncStates.REQUESTED;
+                                  safeSetState(() {});
+                                },
+                              );
+                              _model.progressIndicatorValue = 0.0;
+                              safeSetState(() {});
+                              _model.progressIncrementTimer =
+                                  InstantTimer.periodic(
+                                duration: Duration(milliseconds: 500),
+                                callback: (timer) async {
+                                  _model.progressIndicatorValue =
+                                      _model.progressIndicatorValue + 0.1;
+                                  safeSetState(() {});
+                                  if (_model.progressIndicatorValue >= 1.0) {
+                                    _model.progressIncrementTimer?.cancel();
+                                    _model.progressIndicatorValue = 0.0;
+                                    safeSetState(() {});
+                                  }
+                                },
+                                startImmediately: true,
+                              );
+                            },
                           ),
                         ),
                       ),
@@ -321,34 +324,55 @@ class _HomeWidgetState extends State<HomeWidget> {
                                     letterSpacing: 0.0,
                                   ),
                           colors: [
-                            FlutterFlowTheme.of(context).info,
-                            FlutterFlowTheme.of(context).primary
+                            FlutterFlowTheme.of(context).primary,
+                            FlutterFlowTheme.of(context).secondary
                           ],
                           gradientDirection: GradientDirection.ltr,
                           gradientType: GradientType.linear,
                         ),
                       ),
-                    if (valueOrDefault<bool>(
-                      FFAppState().isWeb,
-                      false,
-                    ))
-                      Padding(
-                        padding: EdgeInsets.all(16.0),
-                        child: GradientText(
-                          'Async method status: ${FFAppState().asyncState?.name}',
-                          style:
-                              FlutterFlowTheme.of(context).titleMedium.override(
-                                    fontFamily: 'Space Grotesk',
-                                    letterSpacing: 0.0,
-                                  ),
-                          colors: [
-                            FlutterFlowTheme.of(context).info,
-                            FlutterFlowTheme.of(context).primary
-                          ],
-                          gradientDirection: GradientDirection.ltr,
-                          gradientType: GradientType.linear,
-                        ),
+                    Padding(
+                      padding: EdgeInsets.all(16.0),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          if (valueOrDefault<bool>(
+                            FFAppState().isWeb,
+                            false,
+                          ))
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 16.0, 0.0),
+                              child: GradientText(
+                                'Async method status: ${FFAppState().asyncState?.name}',
+                                style: FlutterFlowTheme.of(context)
+                                    .titleMedium
+                                    .override(
+                                      fontFamily: 'Space Grotesk',
+                                      letterSpacing: 0.0,
+                                    ),
+                                colors: [
+                                  FlutterFlowTheme.of(context).primary,
+                                  FlutterFlowTheme.of(context).secondary
+                                ],
+                                gradientDirection: GradientDirection.ltr,
+                                gradientType: GradientType.linear,
+                              ),
+                            ),
+                          if (_model.progressIndicatorValue != 0.0)
+                            CircularPercentIndicator(
+                              percent: _model.progressIndicatorValue,
+                              radius: 10.0,
+                              lineWidth: 2.0,
+                              animation: true,
+                              animateFromLastPercent: true,
+                              progressColor:
+                                  FlutterFlowTheme.of(context).tertiary,
+                            ),
+                        ],
                       ),
+                    ),
                   ],
                 ),
               ),
